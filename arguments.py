@@ -5,10 +5,10 @@ class Arguments:
     def __init__(self):
         self.use_gpu_runner = False
         self.use_gpu_driver = True
-        self.cuda_devices = [0, 1, 2, 3]
+        self.cuda_devices = [0]
         self.episode_steps = 256
-        self.num_meta = 32
-        self.num_minibatch = 16
+        self.num_meta = 2
+        self.num_minibatch = 4
         self.buffer_size = int(self.num_meta * self.episode_steps)
         self.minibatch_size = int(self.buffer_size // self.num_minibatch)  # recommand 128 for every 24GB VRAM
         self.update_epochs = 4
@@ -42,7 +42,7 @@ class Arguments:
             self.wandb_notes = ''
             self.wandb_id = ''
         self.save_img_gap = 0  # 0 to turn off
-        self.save_files = True
+        self.save_files = False
 
 
 class ArgumentsEval(Arguments):

@@ -19,7 +19,6 @@ class Logger:
         self.net = None
         self.optimizer = None
         self.lr_scheduler = None
-        self.best_perf = 1
         self.cuda_devices = str(arg.cuda_devices)[1:-1]
         self.writer = SummaryWriter(arg.train_path) if arg.save_files else None
         self.episode_buffer_keys = ['history', 'edge', 'dist', 'dt',  'nodeidx', 'logp', 'action', 'value',
@@ -92,22 +91,8 @@ class Logger:
         self.lr_scheduler.load_state_dict(checkpoint['lr_decay'])
         curr_episode = checkpoint['episode']
         print("Current episode set to :", curr_episode)
-        best_model_checkpoint = torch.load(arg.model_path + '/best_model_checkpoint.pth')
-        best_perf = best_model_checkpoint['best_perf']
-        print('Best performance so far :', best_perf)
         print('Learning rate :', self.optimizer.state_dict()['param_groups'][0]['lr'])
         return curr_episode
-
-    def save_best_model(self, best_perf, curr_episode):
-        self.best_perf = best_perf
-        print('Saving best model', end='\n')
-        checkpoint = {"model": self.net.state_dict(),
-                      "optimizer": self.optimizer.state_dict(),
-                      "episode": curr_episode,
-                      "lr_decay": self.lr_scheduler.state_dict(),
-                      "best_perf": self.best_perf}
-        path_checkpoint = "./" + arg.model_path + "/best_model_checkpoint.pth"
-        torch.save(checkpoint, path_checkpoint)
 
     def save_model(self, curr_episode):
         print('Saving model', end='\n')
@@ -249,9 +234,6 @@ def main():
 
             if curr_episode % 64 == 0 and arg.save_files:
                 logger.save_model(curr_episode)
-                best_perf = np.mean(perf_metrics['avgjsd'])
-                if best_perf < logger.best_perf:
-                    logger.save_best_model(best_perf, curr_episode)
 
 
     except KeyboardInterrupt:

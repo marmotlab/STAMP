@@ -1,9 +1,7 @@
-import os
-import copy
 import numpy as np
 from itertools import product
-from utils import GraphController
-from ground_truth import VTSPGaussian
+from utils.graph_controller import GraphController
+from utils.target_controller import VTSPGaussian
 from matplotlib import pyplot as plt
 from gaussian_process import GaussianProcessWrapper
 from arguments import arg

@@ -1,7 +1,5 @@
 import numpy as np
 import math
-import matplotlib.pyplot as plt
-from itertools import product, combinations
 from utils.tsp_controller import TSPSolver
 
 
