@@ -6,7 +6,6 @@ from matplotlib import pyplot as plt
 from sklearn.metrics import mean_squared_error
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import Matern, RBF, ConstantKernel as C
-from ground_truth import DriftGaussian
 from arguments import arg
 
 
@@ -280,22 +279,4 @@ class GaussianProcessWrapper:
 
 
 if __name__ == '__main__':
-    example = DriftGaussian()
-    x1 = np.linspace(0, 1)
-    x2 = np.linspace(0, 1)
-    x1x2 = np.array(list(product(x1, x2)))
-    y_true_distrib = example.fn(X=x1x2)
-    # print(y_true.shape)
-    node_coords_uni = np.random.uniform(0, 1, (100, 2))
-    gp_ipp = GaussianProcess(node_coords_uni)
-    gp_ipp.plot(y_true_distrib.reshape(50, 50))
-    for i in range(node_coords_uni.shape[0]):
-        y_observe = example.fn(node_coords_uni[i].reshape(-1, 2))
-        # print(node_coords_uni[i], y_observe)
-        gp_ipp.add_observed_point(node_coords_uni[i], y_observe)
-        gp_ipp.update_gp()
-        y_pre, std = gp_ipp.update_node()
-        print(gp_ipp.evaluate_cov_trace())
-    gp_ipp.plot(y_true_distrib)
-    print(gp_ipp.evaluate_F1score(y_true_distrib))
-    print(gp_ipp.gp.kernel_)
+    pass

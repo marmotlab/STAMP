@@ -27,7 +27,7 @@ class Logger:
         self.metric_names = ['avgnvisit', 'stdnvisit', 'avggapvisit', 'stdgapvisit', 'avgrmse', 'avgunc', 'avgjsd',
                              'avgkld', 'stdunc', 'stdjsd', 'covtr', 'f1', 'mi', 'js', 'rmse', 'scalex', 'scalet']
         np.random.seed(0)
-        print('=== Welcome to PM! ===\n'
+        print('=== Welcome to STAMP! ===\n'
               f'Initializing : {arg.run_name}\n'
               f'Minibatch size : {arg.minibatch_size}, Buffer size : {arg.buffer_size}')
         if self.cuda_devices:

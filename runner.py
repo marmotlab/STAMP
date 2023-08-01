@@ -32,8 +32,4 @@ class Runner(object):
 
 
 if __name__=='__main__':
-    ray.init()
-    runner = Runner.remote(0)
-    job_id = runner.singleThreadedJob.remote(1)
-    out = ray.get(job_id)
-    print(out[1])
+    pass

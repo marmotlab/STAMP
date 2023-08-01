@@ -18,7 +18,7 @@ tensorboard
 ```
 
 ### Training
-1. Set appropriate parameters in `arguments.py -> Aurguments`.
+1. Set appropriate parameters in `arguments.py -> Arguments`.
 2. Run `python train.py`.
 
 ### Evaluation
@@ -38,7 +38,7 @@ tensorboard
 - `/model/*`: Trained model.
 
 ### Demo
-![demo](./models/media/demo.gif)
+![demo](utils/media/demo.gif)
 
 
 ## Cite

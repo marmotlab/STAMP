@@ -3,7 +3,7 @@ import copy
 import numpy as np
 from itertools import product
 from utils import GraphController
-from ground_truth import FixedMotion, FixedPosition, VTSPGaussian, DriftGaussian
+from ground_truth import VTSPGaussian
 from matplotlib import pyplot as plt
 from gaussian_process import GaussianProcessWrapper
 from arguments import arg
@@ -158,12 +158,6 @@ class Env:
         JS, JS_list = self.gp_wrapper.eval_avg_JS(self.ground_truth, actual_t, return_all=True)
         KL, KL_list = self.gp_wrapper.eval_avg_KL(self.ground_truth, actual_t, return_all=True)
 
-        # r = self.JS_init - JS
-        # r = 0.1 * (self.KL_init - self.KL)
-        # r = np.mean(np.array(self.KL_list) * (np.array(self.KL_list) - np.array(KL_list)))
-        # r = 20 * np.mean(np.array(self.JS_list) * (np.array(self.JS_list) - np.array(JS_list)))
-        # for i in range(self.n_targets):
-        #     r += max(self.unc_sum_list[i] - unc_sum_list[i], 0)
         r = 0
         for i in range(self.n_targets):
             r += max(self.unc_list[i] - unc_list[i], 0)

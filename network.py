@@ -243,7 +243,6 @@ class AttentionNet(nn.Module):
         self.spatio_decoder = Decoder(embedding_dim=embedding_dim, n_head=4, n_layer=1)
         self.pointer = SingleHeadAttention(embedding_dim)
 
-        # self.temporal_pos_embedding = PositionalEncoding(embedding_dim, dropout=0, max_len=100)
         self.spatio_pos_embedding = nn.Linear(32, embedding_dim)
         self.loc_embedding = nn.Linear(2, embedding_dim)
         self.belief_embedding = nn.Linear(4, embedding_dim)
@@ -270,7 +269,6 @@ class AttentionNet(nn.Module):
         embedded_feature = embedded_feature.permute(0, 2, 1, 3).reshape(-1, history_size, self.embedding_dim) # (bx201)x10x128
         dt_inputs = dt_inputs.unsqueeze(1).repeat(1, graph_size, 1, 1).reshape(-1, history_size, 1)  # (bx201)x10x1
         embedded_feature += self.timefusion_layer(dt_inputs)
-        # embedded_feature = self.temporal_pos_embedding(embedded_feature)
 
         mask = torch.zeros((batch_size*graph_size, 1, history_size), dtype=torch.bool).to(history_inputs.device)
         if temporal_mask is not None:
@@ -311,11 +309,4 @@ class AttentionNet(nn.Module):
 
 
 if __name__ == '__main__':
-    model = AttentionNet(9, 128)
-    history_inputs = torch.rand((2, 50, 201, 9))
-    temporal_mask = torch.tensor([0,1])
-    edge_inputs = torch.randint(0, 10, (128, 10, 5))
-    edge_inputs_list = []
-    current_index = torch.ones(size=(128, 1, 1), dtype=torch.int64)
-    model(history_inputs, temporal_mask)
-
+    pass
