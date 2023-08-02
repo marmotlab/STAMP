@@ -19,7 +19,7 @@ tensorboard
 
 ### Training
 1. Set appropriate parameters in `arguments.py -> Arguments`.
-2. Run `python train.py`.
+2. Run `python driver.py`.
 
 ### Evaluation
 1. Set appropriate parameters in `arguments.py -> ArgumentsEval`.
@@ -34,7 +34,7 @@ tensorboard
 - `env.py`: Persistent monitoring environment.
 - `gaussian_process.py`: Gaussian processes (wrapper) for belief representation.
 - `/evals/*`: Evaluation files.
-- `/utils/*`: Utility files for graph and TSP.
+- `/utils/*`: Utility files for graph, target motion, and TSP.
 - `/model/*`: Trained model.
 
 ### Demo
