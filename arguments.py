@@ -7,10 +7,10 @@ class Arguments:
         self.use_gpu_driver = True
         self.cuda_devices = [0]
         self.episode_steps = 256
-        self.num_meta = 2
-        self.num_minibatch = 4
+        self.num_meta = 16
+        self.num_minibatch = 16
         self.buffer_size = int(self.num_meta * self.episode_steps)
-        self.minibatch_size = int(self.buffer_size // self.num_minibatch)  # recommand 128 for every 24GB VRAM
+        self.minibatch_size = int(self.buffer_size // self.num_minibatch)
         self.update_epochs = 4
         self.curriculum = True  # curriculum learning
 

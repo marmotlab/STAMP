@@ -287,7 +287,7 @@ class AttentionNet(nn.Module):
         if spatio_mask is not None:
             mask = torch.gather(spatio_mask, 1, current_index.repeat(1, 1, neighbor_size)).to(embedded_feature.device)
         else:
-            mask = torch.zeros((batch_size, 1, neighbor_size), dtype=torch.int64).to(embedded_feature.device)
+            mask = torch.zeros((batch_size, 1, neighbor_size), dtype=torch.bool).to(embedded_feature.device)
         mask[:, :, 0] = 1  # don't stay at current position
 
         embedded_feature += self.spatio_pos_embedding(spatio_pos_encoding)

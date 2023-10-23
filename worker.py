@@ -44,7 +44,7 @@ class Worker:
 
         current_index = torch.tensor([[[self.env.current_node_index]]]).to(self.device)
 
-        spatio_mask = torch.zeros((1, self.graph_size + 1, arg.k_size), dtype=torch.int64).to(self.device)
+        spatio_mask = torch.zeros((1, self.graph_size + 1, arg.k_size), dtype=torch.bool).to(self.device)
         temporal_mask = torch.tensor([1])
         return node_coords, node_history, history_pool_inputs, edge_inputs, dist_inputs, dt_history, dt_pool_inputs, \
                current_index, spatio_pos_encoding, temporal_mask, spatio_mask
@@ -115,7 +115,7 @@ class Worker:
             dist_inputs = torch.Tensor(dist_inputs).unsqueeze(0).to(self.device)
 
             # mask
-            spatio_mask = torch.zeros((1, self.graph_size + 1, arg.k_size), dtype=torch.int64).to(self.device)
+            spatio_mask = torch.zeros((1, self.graph_size + 1, arg.k_size), dtype=torch.bool).to(self.device)
             temporal_mask = torch.tensor([(len(route) - 1) // arg.history_stride + 1])
 
             if done:

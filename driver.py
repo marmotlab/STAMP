@@ -162,20 +162,20 @@ def main():
                 for n in logger.metric_names:
                     perf_metrics[n].append(metrics[n])
 
-            b_history_inputs = torch.stack(buffer['history'], dim=0).to(device)
-            b_edge_inputs = torch.stack(buffer['edge'], dim=0).to(device)
-            b_dist_inputs = torch.stack(buffer['dist'], dim=0).to(device)
-            b_dt_inputs = torch.stack(buffer['dt'], dim=0).to(device)
-            b_current_inputs = torch.stack(buffer['nodeidx'], dim=0).to(device)
-            b_logp = torch.stack(buffer['logp'], dim=0).to(device)
-            b_action = torch.stack(buffer['action'], dim=0).to(device)
-            b_value = torch.stack(buffer['value'], dim=0).to(device)
-            b_reward = torch.stack(buffer['reward'], dim=0).to(device)
-            b_return = torch.stack(buffer['return'], dim=0).to(device)
-            b_advantage = torch.stack(buffer['advantage'], dim=0).to(device)
-            b_temporal_mask = torch.stack(buffer['temporalmask']).to(device)
-            b_spatio_mask = torch.stack(buffer['spatiomask']).to(device)
-            b_pos_encoding = torch.stack(buffer['spatiope']).to(device)
+            b_history_inputs = torch.stack(buffer['history'], dim=0)
+            b_edge_inputs = torch.stack(buffer['edge'], dim=0)
+            b_dist_inputs = torch.stack(buffer['dist'], dim=0)
+            b_dt_inputs = torch.stack(buffer['dt'], dim=0)
+            b_current_inputs = torch.stack(buffer['nodeidx'], dim=0)
+            b_logp = torch.stack(buffer['logp'], dim=0)
+            b_action = torch.stack(buffer['action'], dim=0)
+            b_value = torch.stack(buffer['value'], dim=0)
+            b_reward = torch.stack(buffer['reward'], dim=0)
+            b_return = torch.stack(buffer['return'], dim=0)
+            b_advantage = torch.stack(buffer['advantage'], dim=0)
+            b_temporal_mask = torch.stack(buffer['temporalmask'])
+            b_spatio_mask = torch.stack(buffer['spatiomask'])
+            b_pos_encoding = torch.stack(buffer['spatiope'])
 
             scaler = GradScaler()
             for epoch in range(arg.update_epochs):
@@ -183,18 +183,18 @@ def main():
                 for start in range(0, arg.buffer_size, arg.minibatch_size):
                     end = start + arg.minibatch_size
                     mb_idxs = buffer_idxs[start:end]
-                    mb_old_logp = b_logp[mb_idxs]
-                    mb_history_inputs = b_history_inputs[mb_idxs]
-                    mb_edge_inputs = b_edge_inputs[mb_idxs]
-                    mb_dist_inputs = b_dist_inputs[mb_idxs]
-                    mb_dt_inputs = b_dt_inputs[mb_idxs]
-                    mb_current_inputs = b_current_inputs[mb_idxs]
-                    mb_action = b_action[mb_idxs]
-                    mb_return = b_return[mb_idxs]
-                    mb_advantage = b_advantage[mb_idxs]
-                    mb_temporal_mask = b_temporal_mask[mb_idxs]
-                    mb_spatio_mask = b_spatio_mask[mb_idxs]
-                    mb_pos_encoding = b_pos_encoding[mb_idxs]
+                    mb_old_logp = b_logp[mb_idxs].to(device)
+                    mb_history_inputs = b_history_inputs[mb_idxs].to(device)
+                    mb_edge_inputs = b_edge_inputs[mb_idxs].to(device)
+                    mb_dist_inputs = b_dist_inputs[mb_idxs].to(device)
+                    mb_dt_inputs = b_dt_inputs[mb_idxs].to(device)
+                    mb_current_inputs = b_current_inputs[mb_idxs].to(device)
+                    mb_action = b_action[mb_idxs].to(device)
+                    mb_return = b_return[mb_idxs].to(device)
+                    mb_advantage = b_advantage[mb_idxs].to(device)
+                    mb_temporal_mask = b_temporal_mask[mb_idxs].to(device)
+                    mb_spatio_mask = b_spatio_mask[mb_idxs].to(device)
+                    mb_pos_encoding = b_pos_encoding[mb_idxs].to(device)
 
                     with autocast():
                         logp_list, value = dp_global_network(mb_history_inputs, mb_edge_inputs, mb_dist_inputs, mb_dt_inputs,
