@@ -38,7 +38,17 @@ tensorboard
 - `/model/*`: Trained model.
 
 ### Demo
-![demo](utils/media/demo.gif)
+
+<img src="utils/media/demo.gif" alt="demo" style="width: 70%;">
+
+<div>
+    <h3><a href="https://youtu.be/q1wQup70m6c">Watch AirSim Video</a></h3>
+    <a href="https://youtu.be/q1wQup70m6c">
+        <img src="https://img.youtube.com/vi/q1wQup70m6c/maxresdefault.jpg" alt="Watch the video" style="width: 70%;">
+    </a>
+</div>
+
+
 
 
 ## Cite
